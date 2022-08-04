@@ -2,7 +2,7 @@ import Config from '@lib/config';
 import encodeBase64 from '@lib/encodeBase64';
 import type { NextApiHandler } from 'next'
 
-const handler: NextApiHandler = async (req, res) => {
+const handler: NextApiHandler = async (_req, res) => {
   const response = await fetch(`${Config.yapily.api}/institutions`, {
     method: 'GET',
     headers: {
