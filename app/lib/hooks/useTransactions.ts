@@ -7,7 +7,7 @@ const useTransactions = (institutionId: string, accountId: string) => {
   const queryClient = useQueryClient();
   const consent = queryClient.getQueryData<InstitutionConsent>(QueryKeys.consents(institutionId));
   return useQuery(
-    QueryKeys.accounts(institutionId),
+    QueryKeys.transactions(institutionId, accountId),
     () => fetchTransactions({ accountId, consent: consent!.consent }), {
       enabled: !!consent,
     }

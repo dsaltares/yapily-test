@@ -15,7 +15,7 @@ const AccountsPage = () => {
         accounts && accounts.map(account => (
           <li key={account.id}>
             <button onClick={() => router.push(`/${institutionId}/${account.id}`)}>
-            {`${account.accountNames[0].name} - ${account.balance}${account.currency}`}
+            {`${account.accountNames[0]?.name} - ${account.balance}${account.currency}`}
             </button>
           </li>
         ))
