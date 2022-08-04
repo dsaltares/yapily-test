@@ -5,10 +5,13 @@
 
 ### Things that need to be improved
 
-- Request/response validation against a schema
+- Request/response validation against a schema.
+- Using one unique yapily user for everything right now.
 
 ### TODO
 
 - Error handling
 - HTTP method filtering
 - Loading states
+- Right now, monthly stats are only valid for months with <1000 transactions
+

@@ -5,6 +5,7 @@ import type { NextApiHandler } from 'next'
 
 const handler: NextApiHandler = async (req, res) => {
   const institutionId = req.body.institutionId as string;
+  console.error(detectHost(req));
   const response = await fetch(`${Config.yapily.api}/account-auth-requests`, {
     method: 'POST',
     headers: {
