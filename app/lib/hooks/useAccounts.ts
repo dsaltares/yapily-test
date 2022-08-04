@@ -1,4 +1,5 @@
 import { InstitutionConsent } from "@lib/authorization";
+import Endpoints from "@lib/endpoints";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import QueryKeys from "./queryKeys";
 
@@ -16,7 +17,7 @@ const useAccounts = (institutionId: string) => {
 export default useAccounts;
 
 const fetchAccounts = async (consent: string) => {
-  const response = await fetch('/api/accounts', {
+  const response = await fetch(Endpoints.accounts, {
     headers: { consent }
   });
   const json = await response.json();

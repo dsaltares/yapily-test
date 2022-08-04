@@ -1,3 +1,4 @@
+import Endpoints from "@lib/endpoints";
 import { useMutation } from "@tanstack/react-query";
 
 const useAccountAuthorization = () => useMutation(getAccountAuthorizationUrl, {
@@ -7,7 +8,7 @@ const useAccountAuthorization = () => useMutation(getAccountAuthorizationUrl, {
 export default useAccountAuthorization;
 
 const getAccountAuthorizationUrl = async (institutionId: string) => {
-  const response = await fetch('/api/accountAuthorization', {
+  const response = await fetch(Endpoints.accountAuthorization, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
