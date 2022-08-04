@@ -1,9 +1,10 @@
-import { useAddInstitutionConsent } from "@lib/authorization";
+import QueryKeys from "@lib/hooks/queryKeys";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const CallbackPage = () => {
-  const addInstitutionConsent = useAddInstitutionConsent();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   useEffect(() => {
@@ -11,14 +12,18 @@ const CallbackPage = () => {
     const applicationUserId = router.query['application-user-id'] as string;
     const userUuid = router.query['user-uuid'] as string;
     const institution = router.query.institution as string;
-    addInstitutionConsent({
-      consent,
-      applicationUserId,
-      userUuid,
-      institution,
-    });
-    router.push(`/accounts/${institution}`);
-  }, [addInstitutionConsent, router]);
+
+    if (consent && applicationUserId && userUuid && institution) {
+      queryClient.setQueryData(QueryKeys.consents(institution), {
+        consent,
+        applicationUserId,
+        userUuid,
+        institution,
+      });
+      router.push(`/${institution}/accounts`);
+    }
+
+  }, [queryClient, router]);
 
   return null;
 };
