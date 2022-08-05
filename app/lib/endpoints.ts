@@ -7,7 +7,13 @@ const Endpoints = {
   accountAuthorization: `${baseUrl}/api/accountAuthorization`,
   accounts: `${baseUrl}/api/accounts`,
   institutions: `${baseUrl}/api/institutions`,
-  transactions: (accountId: string) => `${baseUrl}/api/transactions/${accountId}`,
+  transactions: (accountId: string, from: string, before: string) => {
+    const query = new URLSearchParams({
+      from,
+      before,
+    }).toString();
+    return `${baseUrl}/api/transactions/${accountId}?${query}`;
+  },
 };
 
 export default Endpoints;

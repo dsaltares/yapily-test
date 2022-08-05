@@ -1,4 +1,4 @@
-import useAccounts from "@lib/hooks/useAccounts";
+import startOfMonth from 'date-fns/startOfMonth';
 import useEnsureConsent from "@lib/hooks/useEnsureConsent";
 import useTransactions from "@lib/hooks/useTransactions";
 import { useRouter } from "next/router";
@@ -9,7 +9,10 @@ const AccountPage = () => {
   const router = useRouter();
   const institutionId = router.query.institutionId as string;
   const accountId = router.query.accountId as string;
-  const { data: transactions } = useTransactions(institutionId, accountId);
+  const now = new Date();
+  const from = startOfMonth(now).toISOString();
+  const before = now.toISOString();
+  const { data: transactions } = useTransactions({institutionId, accountId, from, before});
 
   return (
     <ul>
