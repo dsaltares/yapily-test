@@ -11,7 +11,7 @@ const fetchInstitutions = async () => {
   return json.data as Institution[];
 };
 
-type Institution = {
+export type Institution = {
   id: string;
   name: string;
   fullName: string;
