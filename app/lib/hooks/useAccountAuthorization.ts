@@ -19,6 +19,5 @@ const getAccountAuthorizationUrl = async (institutionId: string) => {
   });
 
   const json = await response.json();
-  console.log(json);
   return json.data.authorisationUrl as string;
 }
