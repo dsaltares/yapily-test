@@ -1,7 +1,7 @@
-import QueryKeys from "@lib/hooks/queryKeys";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import QueryKeys from '@lib/hooks/queryKeys';
 
 const CallbackPage = () => {
   const queryClient = useQueryClient();
@@ -20,9 +20,8 @@ const CallbackPage = () => {
         userUuid,
         institution,
       });
-      router.push(`/${institution}/accounts`);
+      void router.push(`/${institution}/accounts`);
     }
-
   }, [queryClient, router]);
 
   return null;

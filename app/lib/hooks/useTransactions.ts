@@ -1,7 +1,7 @@
-import { InstitutionConsent } from "@lib/authorization";
-import Endpoints from "@lib/endpoints";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import QueryKeys from "./queryKeys";
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import type { InstitutionConsent } from '@lib/authorization';
+import Endpoints from '@lib/endpoints';
+import QueryKeys from './queryKeys';
 
 type UseTransactionsParams = {
   institutionId: string;
@@ -10,12 +10,21 @@ type UseTransactionsParams = {
   before: string;
 };
 
-const useTransactions = ({ institutionId, accountId, from, before }: UseTransactionsParams) => {
+const useTransactions = ({
+  institutionId,
+  accountId,
+  from,
+  before,
+}: UseTransactionsParams) => {
   const queryClient = useQueryClient();
-  const consent = queryClient.getQueryData<InstitutionConsent>(QueryKeys.consents(institutionId));
+  const consent = queryClient.getQueryData<InstitutionConsent>(
+    QueryKeys.consents(institutionId)
+  );
   return useQuery(
     QueryKeys.transactions(institutionId, accountId, from, before),
-    () => fetchTransactions({ accountId, consent: consent!.consent, from, before }), {
+    () =>
+      fetchTransactions({ accountId, consent: consent!.consent, from, before }),
+    {
       enabled: !!consent,
     }
   );
@@ -30,13 +39,21 @@ type FetchTransactionsParams = {
   before: string;
 };
 
-const fetchTransactions = async ({ accountId, consent, from, before }: FetchTransactionsParams) => {
-  const response = await fetch(Endpoints.transactions(accountId, from, before), {
-    headers: { consent }
-  });
+const fetchTransactions = async ({
+  accountId,
+  consent,
+  from,
+  before,
+}: FetchTransactionsParams) => {
+  const response = await fetch(
+    Endpoints.transactions(accountId, from, before),
+    {
+      headers: { consent },
+    }
+  );
   const json = await response.json();
-  return json.data as Transaction[]
-}
+  return json.data as Transaction[];
+};
 
 type Transaction = {
   id: string;
@@ -46,10 +63,15 @@ type Transaction = {
   currency: string;
   description: string;
   balance: {
-    type: 'CLOSING_AVAILABLE' | 'CLOSING_BOOKED' | 'EXPECTED' | 'CLOSING_CLEARED' | 'FORWARD_AVAILABLE';
+    type:
+      | 'CLOSING_AVAILABLE'
+      | 'CLOSING_BOOKED'
+      | 'EXPECTED'
+      | 'CLOSING_CLEARED'
+      | 'FORWARD_AVAILABLE';
     balanceAmount: {
       amount: number;
       currency: string;
-    }
-  },
-}
+    };
+  };
+};

@@ -1,9 +1,10 @@
-import Endpoints from "@lib/endpoints";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
+import Endpoints from '@lib/endpoints';
 
-const useAccountAuthorization = () => useMutation(getAccountAuthorizationUrl, {
-  onSuccess: (url) => window.location.assign(url)
-});
+const useAccountAuthorization = () =>
+  useMutation(getAccountAuthorizationUrl, {
+    onSuccess: (url) => window.location.assign(url),
+  });
 
 export default useAccountAuthorization;
 
@@ -15,9 +16,9 @@ const getAccountAuthorizationUrl = async (institutionId: string) => {
     },
     body: JSON.stringify({
       institutionId,
-    })
+    }),
   });
 
   const json = await response.json();
   return json.data.authorisationUrl as string;
-}
+};

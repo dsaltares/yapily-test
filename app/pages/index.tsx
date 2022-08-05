@@ -1,7 +1,7 @@
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import useAccountAuthorization from '@lib/hooks/useAccountAuthorization';
-import useInstitutions from '@lib/hooks/useInstitutions'
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import useInstitutions from '@lib/hooks/useInstitutions';
 
 const InstitutionsPage: NextPage = () => {
   const { data: institutions } = useInstitutions();
@@ -15,24 +15,21 @@ const InstitutionsPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main >
-        <h1>
-          Select institution
-        </h1>
+      <main>
+        <h1>Select institution</h1>
         <ul>
-          {
-            institutions && institutions.map(institution => (
+          {institutions &&
+            institutions.map((institution) => (
               <li key={institution.id}>
                 <button onClick={() => authorizeAccount(institution.id)}>
-                {institution.fullName}
+                  {institution.fullName}
                 </button>
               </li>
-            ))
-          }
+            ))}
         </ul>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default InstitutionsPage
+export default InstitutionsPage;
