@@ -1,7 +1,9 @@
-import startOfMonth from 'date-fns/startOfMonth';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import useEnsureConsent from '@lib/hooks/useEnsureConsent';
-import useTransactions from '@lib/hooks/useTransactions';
+import Layout from '@components/Layout';
+import useAccount from '@lib/hooks/useAccount';
+import TransactionsTable from '@components/TransactionsTable';
 
 const AccountPage = () => {
   useEnsureConsent();
@@ -9,25 +11,22 @@ const AccountPage = () => {
   const router = useRouter();
   const institutionId = router.query.institutionId as string;
   const accountId = router.query.accountId as string;
-  const now = new Date();
-  const from = startOfMonth(now).toISOString();
-  const before = now.toISOString();
-  const { data: transactions } = useTransactions({
-    institutionId,
-    accountId,
-    from,
-    before,
-  });
+  const { data: account } = useAccount(institutionId, accountId);
+
+  const title = account
+    ? `Transactions - ${account.accountNames[0].name}`
+    : 'Transactions';
 
   return (
-    <ul>
-      {transactions &&
-        transactions.map((transaction) => (
-          <li key={transaction.id}>
-            {`${transaction.date} - ${transaction.amount}${transaction.currency}`}
-          </li>
-        ))}
-    </ul>
+    <>
+      <Head>
+        <title>Yapily Banking App - Transactions</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Layout title={title}>
+        <TransactionsTable />
+      </Layout>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
 import classNames from 'classnames';
 import type { Account } from '@lib/hooks/useAccounts';
+import formatSum from '@lib/formatSum';
 
 type AccountListItemProps = {
   account: Account;
@@ -10,14 +10,6 @@ type AccountListItemProps = {
 const AccountListItem = ({ account }: AccountListItemProps) => {
   const router = useRouter();
   const institutionId = router.query.institutionId as string;
-  const formatter = useMemo(
-    () =>
-      new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: account.currency,
-      }),
-    [account]
-  );
 
   return (
     <li>
@@ -32,7 +24,7 @@ const AccountListItem = ({ account }: AccountListItemProps) => {
             'text-red-500': account.balance < 0,
           })}
         >
-          {formatter.format(account.balance)}
+          {formatSum(account.currency, account.balance)}
         </div>
       </button>
     </li>

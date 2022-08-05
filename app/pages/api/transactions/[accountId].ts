@@ -7,12 +7,17 @@ const handler: NextApiHandler = async (req, res) => {
   const accountId = req.query.accountId as string;
   const from = req.query.from as string;
   const before = req.query.before as string;
-  const query = new URLSearchParams({
-    from,
-    before,
-  }).toString();
+  const query = new URLSearchParams();
+  if (from) {
+    query.set('from', from);
+  }
+  if (before) {
+    query.set('before', before);
+  }
   const response = await fetch(
-    `${Config.yapily.api}/accounts/${accountId}/transactions?${query}`,
+    `${
+      Config.yapily.api
+    }/accounts/${accountId}/transactions?${query.toString()}`,
     {
       method: 'GET',
       headers: {

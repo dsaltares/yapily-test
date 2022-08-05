@@ -5,8 +5,8 @@ const QueryKeys = {
   transactions: (
     institutionId: string,
     accountId: string,
-    from: string,
-    before: string
+    from?: string,
+    before?: string
   ) => ['transactions', institutionId, accountId, from, before],
 };
 

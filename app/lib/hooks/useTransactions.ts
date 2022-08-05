@@ -6,8 +6,8 @@ import QueryKeys from './queryKeys';
 type UseTransactionsParams = {
   institutionId: string;
   accountId: string;
-  from: string;
-  before: string;
+  from?: string;
+  before?: string;
 };
 
 const useTransactions = ({
@@ -35,8 +35,8 @@ export default useTransactions;
 type FetchTransactionsParams = {
   accountId: string;
   consent: string;
-  from: string;
-  before: string;
+  from?: string;
+  before?: string;
 };
 
 const fetchTransactions = async ({
@@ -55,7 +55,7 @@ const fetchTransactions = async ({
   return json.data as Transaction[];
 };
 
-type Transaction = {
+export type Transaction = {
   id: string;
   date: string;
   status: 'BOOKED' | 'PENDING';
