@@ -5,6 +5,8 @@ import Layout from '@components/Layout';
 import useAccount from '@lib/hooks/useAccount';
 import TransactionsTable from '@components/TransactionsTable';
 import MonthPicker from '@components/MonthPicker';
+import BalanceChart from '@components/BalanceChart';
+import formatSum from '@lib/formatSum';
 
 const AccountPage = () => {
   useEnsureConsent();
@@ -15,8 +17,11 @@ const AccountPage = () => {
   const { data: account } = useAccount(institutionId, accountId);
 
   const title = account
-    ? `Transactions - ${account.accountNames[0].name}`
-    : 'Transactions';
+    ? `${account.accountNames[0].name} - ${formatSum(
+        account.currency,
+        account.balance
+      )}`
+    : '';
 
   return (
     <>
@@ -25,8 +30,9 @@ const AccountPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout title={title}>
-        <div className="flex flex-col justify-center items-center gap-4">
+        <div className="flex flex-col justify-center items-center gap-6">
           <MonthPicker />
+          <BalanceChart />
           <TransactionsTable />
         </div>
       </Layout>
