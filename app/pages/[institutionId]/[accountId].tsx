@@ -4,6 +4,7 @@ import useEnsureConsent from '@lib/hooks/useEnsureConsent';
 import Layout from '@components/Layout';
 import useAccount from '@lib/hooks/useAccount';
 import TransactionsTable from '@components/TransactionsTable';
+import MonthPicker from '@components/MonthPicker';
 
 const AccountPage = () => {
   useEnsureConsent();
@@ -24,7 +25,10 @@ const AccountPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout title={title}>
-        <TransactionsTable />
+        <div className="flex flex-col justify-center items-center gap-4">
+          <MonthPicker />
+          <TransactionsTable />
+        </div>
       </Layout>
     </>
   );

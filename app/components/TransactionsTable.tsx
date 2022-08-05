@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import useTransactions from '@lib/hooks/useTransactions';
 import formatSum from '@lib/formatSum';
+import useMonthFromRoute from '@lib/hooks/useMonthFromRoute';
 
 const Cell = ({ children }: PropsWithChildren) => (
   <td className="px-2 py-2">{children}</td>
@@ -23,13 +24,16 @@ const TransactionsTable = () => {
   const router = useRouter();
   const institutionId = router.query.institutionId as string;
   const accountId = router.query.accountId as string;
+  const { from, before } = useMonthFromRoute();
   const { data: transactions } = useTransactions({
     institutionId,
     accountId,
+    from: from?.toISOString(),
+    before: before?.toISOString(),
   });
 
   return (
-    <table className="table-fixed text-sm text-left">
+    <table className="w-full table-fixed text-sm text-left">
       <thead>
         <tr className="bg-primary text-white">
           <HeaderCell>Date</HeaderCell>
