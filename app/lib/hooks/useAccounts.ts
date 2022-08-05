@@ -27,7 +27,7 @@ const fetchAccounts = async (consent: string) => {
   return json.data as Account[];
 };
 
-type Account = {
+export type Account = {
   id: string;
   type: string;
   balance: number;
