@@ -32,4 +32,10 @@ export type Account = {
   accountNames: {
     name: string;
   }[];
+  accountIdentifications: AccountIdentification[];
+};
+
+type AccountIdentification = {
+  identification: string;
+  type: 'ACCOUNT_NUMBER' | 'SORT_CODE' | 'IBAN' | 'BIC' | 'BBAN';
 };

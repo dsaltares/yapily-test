@@ -14,10 +14,19 @@ const AccountListItem = ({ account }: AccountListItemProps) => {
   return (
     <li>
       <button
-        className="w-full flex flex-row justify-between p-2 border border-slate-300 rounded-lg hover:bg-slate-100"
+        className="w-full flex flex-row items-center justify-between p-2 border border-slate-300 rounded-lg hover:bg-slate-100"
         onClick={() => router.push(`/${institutionId}/${account.id}`)}
       >
-        <div>{account.accountNames[0]?.name}</div>
+        <div className="flex flex-row items-center gap-3">
+          <div className="text-sm">
+            {account.accountIdentifications
+              .map((id) => id.identification)
+              .join(' ')}
+          </div>
+          <div className="text-xs text-slate-700">
+            {account.accountNames[0]?.name}
+          </div>
+        </div>
         <div
           className={classNames({
             'text-green-500': account.balance > 0,
