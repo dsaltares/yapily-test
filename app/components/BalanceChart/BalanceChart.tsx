@@ -49,8 +49,8 @@ const BalanceChart = () => {
           <Area
             type="monotone"
             dataKey="amount"
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="#581c87"
+            fill="#c084fc"
           />
         </AreaChart>
       </ResponsiveContainer>
