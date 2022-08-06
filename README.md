@@ -73,6 +73,10 @@ Admittedly, the server state in this application is quite simple, yet I decided 
 
 I wanted to have some kind of visualizations and had never tried `react-charts` until now. I was curious and so I just went for it as opposed to stop and compare it with other tools. For a more real use-case, I would work back from principles&strategy to make this decision.
 
+### Testing strategy
+
+For scope/time reasons, I haven't optimised for test coverage. Instead, I have focused on [*writing tests, not too many, mostly integration*](https://kentcdodds.com/blog/write-tests).
+
 ## To be improved for the future
 
 This is, by no means, a production-ready application.
