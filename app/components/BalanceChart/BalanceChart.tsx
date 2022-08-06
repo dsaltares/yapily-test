@@ -1,10 +1,16 @@
-import { useMemo } from 'react';
-import { type AxisOptions, Chart } from 'react-charts';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import { useRouter } from 'next/router';
-import type { Balance } from '@lib/hooks/useBalances';
 import useMonthFromRoute from '@lib/hooks/useMonthFromRoute';
 import useBalances from '@lib/hooks/useBalances';
-import Spinner from './Spinner';
+import Spinner from '@components/Spinner';
 
 const BalanceChart = () => {
   const router = useRouter();
@@ -18,47 +24,36 @@ const BalanceChart = () => {
     before: before?.toISOString(),
   });
 
-  const data = useMemo(
-    () => [
-      {
-        label: 'Balances',
-        data: balances || [],
-      },
-    ],
-    [balances]
-  );
-
-  const primaryAxis = useMemo(
-    (): AxisOptions<Balance> => ({
-      getValue: (datum) => datum.date,
-      show: false,
-    }),
-    []
-  );
-
-  const secondaryAxes = useMemo(
-    (): AxisOptions<Balance>[] => [
-      {
-        getValue: (datum) => datum.amount,
-        elementType: 'area',
-      },
-    ],
-    []
-  );
-
   let content = null;
 
   if (isLoading) {
     content = <Spinner />;
   } else if (balances && balances.length) {
     content = (
-      <Chart
-        options={{
-          data,
-          primaryAxis,
-          secondaryAxes,
-        }}
-      />
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          width={500}
+          height={400}
+          data={balances}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 0,
+            bottom: 0,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" hide />
+          <YAxis />
+          <Tooltip />
+          <Area
+            type="monotone"
+            dataKey="amount"
+            stroke="#8884d8"
+            fill="#8884d8"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     );
   }
 
