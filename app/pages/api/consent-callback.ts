@@ -32,7 +32,7 @@ const handler: NextApiHandler = async (req, res) => {
       userUuid,
       institution,
     });
-    res.redirect(`${detectHost(req)}/${institution}/accounts`).end();
+    res.redirect(`${detectHost(req)}/${institution}`).end();
   } else {
     res.redirect(`${detectHost(req)}/`).end();
   }
