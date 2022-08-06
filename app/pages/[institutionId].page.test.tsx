@@ -58,8 +58,8 @@ describe('AccountsPage', () => {
 
     render(<AccountsPage />, { router });
 
-    await screen.findByRole('button', { name: '12345 Ada Lovelace €10.00' });
-    await screen.findByRole('button', { name: '67890 Nicola Tesla -£5.00' });
+    await screen.findByRole('link', { name: '12345 Ada Lovelace €10.00' });
+    await screen.findByRole('link', { name: '67890 Nicola Tesla -£5.00' });
   });
 
   it('renders empty accounts list', async () => {
