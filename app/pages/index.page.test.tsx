@@ -41,4 +41,16 @@ describe('InstitutionsPage', () => {
     await screen.findByRole('button', { name: 'Institution 1' });
     await screen.findByRole('button', { name: 'Institution 2' });
   });
+
+  it('renders empty institution list', async () => {
+    server.resetHandlers(
+      rest.get(Endpoints.institutions, (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json({ data: [] }))
+      )
+    );
+
+    render(<InstitutionsPage />);
+
+    await screen.findByText('🤷 Could not find any institutions');
+  });
 });

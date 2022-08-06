@@ -61,4 +61,19 @@ describe('AccountsPage', () => {
     await screen.findByRole('button', { name: '12345 Ada Lovelace €10.00' });
     await screen.findByRole('button', { name: '67890 Nicola Tesla -£5.00' });
   });
+
+  it('renders empty accounts list', async () => {
+    server.resetHandlers(
+      rest.get(Endpoints.consents, (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json({ consents }))
+      ),
+      rest.get(Endpoints.accounts, (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json({ data: [] }))
+      )
+    );
+
+    render(<AccountsPage />, { router });
+
+    await screen.findByText('🤷 Could not find any accounts');
+  });
 });

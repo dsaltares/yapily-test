@@ -37,16 +37,17 @@ const consents = {
   },
 };
 
+const account: Account = {
+  id: 'account-1',
+  type: 'account',
+  balance: 10,
+  currency: 'EUR',
+  accountNames: [{ name: 'Ada Lovelace' }],
+  accountIdentifications: [{ identification: '12345', type: 'IBAN' }],
+};
+
 describe('AccountPage', () => {
   it('renders transactions list', async () => {
-    const account: Account = {
-      id: 'account-1',
-      type: 'account',
-      balance: 10,
-      currency: 'EUR',
-      accountNames: [{ name: 'Ada Lovelace' }],
-      accountIdentifications: [{ identification: '12345', type: 'IBAN' }],
-    };
     const date1 = new Date('2022-08-06');
     const date2 = new Date('2022-08-05');
     const date3 = new Date('2022-08-04');
@@ -114,5 +115,23 @@ describe('AccountPage', () => {
     await screen.findByRole('cell', { name: 'Transaction 1' });
     await screen.findByRole('cell', { name: 'Transaction 2' });
     await screen.findByRole('cell', { name: 'Transaction 3' });
+  });
+
+  it('renders empty state', async () => {
+    server.resetHandlers(
+      rest.get(Endpoints.consents, (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json({ consents }))
+      ),
+      rest.get(Endpoints.accounts, (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json({ data: [account] }))
+      ),
+      rest.get(Endpoints.transactions(account.id), (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json({ data: [] }))
+      )
+    );
+
+    render(<AccountPage />, { router });
+
+    await screen.findByText('No transactions found');
   });
 });
