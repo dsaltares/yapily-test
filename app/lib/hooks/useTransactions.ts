@@ -1,7 +1,7 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import type { InstitutionConsent } from '@lib/authorization';
+import { useQuery } from '@tanstack/react-query';
 import Endpoints from '@lib/endpoints';
 import QueryKeys from './queryKeys';
+import useSyncConsent from './useSyncConsent';
 
 type UseTransactionsParams = {
   institutionId: string;
@@ -16,10 +16,7 @@ const useTransactions = ({
   from,
   before,
 }: UseTransactionsParams) => {
-  const queryClient = useQueryClient();
-  const consent = queryClient.getQueryData<InstitutionConsent>(
-    QueryKeys.consents(institutionId)
-  );
+  const consent = useSyncConsent(institutionId);
   return useQuery(
     QueryKeys.transactions(institutionId, accountId, from, before),
     () =>

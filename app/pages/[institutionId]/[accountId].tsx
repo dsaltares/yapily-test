@@ -1,16 +1,14 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import useEnsureConsent from '@lib/hooks/useEnsureConsent';
 import Layout from '@components/Layout';
 import useAccount from '@lib/hooks/useAccount';
 import TransactionsTable from '@components/TransactionsTable';
 import MonthPicker from '@components/MonthPicker';
 import BalanceChart from '@components/BalanceChart';
 import formatSum from '@lib/formatSum';
+import WithConsent from '@components/WithConsent';
 
 const AccountPage = () => {
-  useEnsureConsent();
-
   const router = useRouter();
   const institutionId = router.query.institutionId as string;
   const accountId = router.query.accountId as string;
@@ -40,4 +38,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default WithConsent(AccountPage);

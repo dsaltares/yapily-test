@@ -15,7 +15,7 @@ const handler: NextApiHandler = async (req, res) => {
     body: JSON.stringify({
       applicationUserId: Config.yapily.applicationUserId,
       institutionId,
-      callback: `${detectHost(req)}/callback`,
+      callback: `${detectHost(req)}/api/consent-callback`,
     }),
   });
   const json = await response.json();

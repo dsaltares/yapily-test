@@ -5,7 +5,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            cacheTime: 1000 * 60 * 60 * 24, // 24 hours
+            staleTime: 1000 * 60 * 5, // 5 minutes
+          },
+        },
+      })
+  );
 
   return (
     <QueryClientProvider client={queryClient}>

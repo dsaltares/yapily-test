@@ -3,6 +3,7 @@
 - Nextjs over CRA: it's more complex but it gives me API endpoints for free and I can use them to avoid sharing the API secret with the client. See https://nextjs.org/docs/api-routes/introduction#use-cases.
 - Persistence of consents
 - I've kept displayed info to a minimum for simplicity
+- Works only with institutions that don't require pre-auth
 
 ### Things that need to be improved
 

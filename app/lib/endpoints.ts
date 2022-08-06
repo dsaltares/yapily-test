@@ -7,6 +7,7 @@ const Endpoints = {
   accountAuthorization: `${baseUrl}/api/accountAuthorization`,
   accounts: `${baseUrl}/api/accounts`,
   institutions: `${baseUrl}/api/institutions`,
+  consents: `${baseUrl}/api/consents`,
   transactions: (accountId: string, from?: string, before?: string) => {
     const query = new URLSearchParams();
     if (from) {
