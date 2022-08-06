@@ -44,7 +44,7 @@ const BalanceChart = () => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" hide />
-          <YAxis />
+          <YAxis width={100} />
           <Tooltip />
           <Area
             type="monotone"
