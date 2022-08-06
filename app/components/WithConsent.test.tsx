@@ -25,6 +25,12 @@ describe('WithConsent', () => {
   });
 
   it('redirects to home page if there is no consent', async () => {
+    server.resetHandlers(
+      rest.get(Endpoints.consents, (_req, res, ctx) =>
+        res(ctx.status(200), ctx.json({ consents: {} }))
+      )
+    );
+
     render(<DummyWithConsent />, { router });
 
     await waitFor(() => {
