@@ -1,18 +1,24 @@
-import type { NextApiHandler } from 'next';
 import Config from '@lib/config';
 import encodeBase64 from '@lib/encodeBase64';
+import type { EndpointDefinition } from '@lib/createEndpoints';
+import createEndpoints from '@lib/createEndpoints';
 
-const handler: NextApiHandler = async (_req, res) => {
-  const response = await fetch(`${Config.yapily.api}/institutions`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Basic ${encodeBase64(
-        `${Config.yapily.key}:${Config.yapily.secret}`
-      )}`,
-    },
-  });
-  const json = await response.json();
-  res.status(200).json(json);
+const getInstitutions: EndpointDefinition = {
+  method: 'GET',
+  handler: async () => {
+    const response = await fetch(`${Config.yapily.api}/institutions`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Basic ${encodeBase64(
+          `${Config.yapily.key}:${Config.yapily.secret}`
+        )}`,
+      },
+    });
+    return {
+      status: 200,
+      body: await response.json(),
+    };
+  },
 };
 
-export default handler;
+export default createEndpoints([getInstitutions]);

@@ -85,10 +85,3 @@ This is, by no means, a production-ready application.
 - Observability
 - Request/response validation against a schema
 
-### TODO
-
-- Error handling
-- HTTP method filtering
-- Loading states
-- Right now, monthly stats are only valid for months with <1000 transactions
-
