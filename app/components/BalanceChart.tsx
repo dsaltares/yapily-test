@@ -18,12 +18,15 @@ const BalanceChart = () => {
     before: before?.toISOString(),
   });
 
-  const data = [
-    {
-      label: 'Balances',
-      data: balances || [],
-    },
-  ];
+  const data = useMemo(
+    () => [
+      {
+        label: 'Balances',
+        data: balances || [],
+      },
+    ],
+    [balances]
+  );
 
   const primaryAxis = useMemo(
     (): AxisOptions<Balance> => ({

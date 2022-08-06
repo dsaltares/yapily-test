@@ -16,7 +16,8 @@ const Endpoints = {
     if (before) {
       query.set('before', before);
     }
-    return `${baseUrl}/api/transactions/${accountId}?${query.toString()}`;
+    const base = `${baseUrl}/api/transactions/${accountId}`;
+    return query.keys.length ? `${base}?${query.toString()}` : base;
   },
 };
 
